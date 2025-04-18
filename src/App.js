@@ -3,9 +3,13 @@ import './App.css'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar'; 
 import Login from './pages/Login';
-import { SignUp } from './pages/SignUp';
+import  SignUp  from './pages/SignUp';
 import HomePage from './pages/HomePage';
 import { AuthProvider, useAuth } from './context/AuthContext';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Protected Route
 const ProtectedRoute = ({ children }) => {
@@ -13,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
   return auth.user ? children : <Navigate to="/login" />;
 };
 
-export const App = () => {
+const App = () => {
   return (
     <AuthProvider>
       <Router>
@@ -30,6 +34,7 @@ export const App = () => {
             }
           />
         </Routes>
+        <ToastContainer/>
       </Router>
     </AuthProvider>
   )
