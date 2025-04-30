@@ -18,38 +18,39 @@ const Signup = () => {
     const handleSubmit =async (e) => {
         e.preventDefault();
         // handle backend api here
-        if (!name || !email || !password || !otp) {
+        
+        if(!name || !email || !password || !otp){
             toast.error('All fields are required');
             return;
         }
-        try {
-            setLoading(true); // Show loading state
+
+        try{
+            setLoading(true);
             const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json',
                 },
-                body: JSON.stringify({ name, email, password, otp, role }), // Send all form data
-                credentials: 'include', // Include cookies for CORS
+                body: JSON.stringify({name, email, password, otp, role}),  // Send all form data
+                credentials: 'include',   // Include cookies for CORS
             });
 
             const data = await response.json();
 
-            if (response.ok) {
+            if(response.ok){
                 toast.success('Registration successful');
-                // Log in the user after successful registration
-                login({ email, role });
+                // Login the user after successfully registration 
+                login({email, role});
                 navigate('/');
             } else {
-                toast.error(data.message || 'Registration failed');
+                toast.error(data.message  || 'Registration failed');
             }
         }
-        catch (error) {
+        catch(error){
             toast.error('Error during registration');
         } finally {
-            setLoading(false); // Reset loading state
+            setLoading(false);  // Reset loading state
         }
-
     }
 
 
